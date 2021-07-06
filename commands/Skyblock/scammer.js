@@ -11,7 +11,7 @@ module.exports = {
   perms: "None",
   folder: "Skyblock",
   aliases: [ 'sc' ],
-  async execute(client, message, args) {
+  async execute(client, message, args, mclient) {
 
     const ign = args[0];
 
@@ -27,7 +27,7 @@ module.exports = {
 
         const waitingembed = await message.channel.send({embeds: [waitembed]})
     
-    axios.get(`https://api.mojang.com/users/profiles/minecraft/${ign}`).then(res => {
+    axios.get(`https://api.mojang.com/users/profiles/minecraft/${ign}`).then(async res => {
       const uuid = res.data.id;
 
 
@@ -47,10 +47,6 @@ if (res.status != 200) {
   return;
 }
 
-      const MongoClient = require('mongodb').MongoClient;
-      const mclient = new MongoClient(urii, { useNewUrlParser: true, useUnifiedTopology: true });
-      mclient.connect(async err => {
-        if (err) throw err;
         const ign = args[0];
         const collection = mclient.db('Sky-Bot').collection('Scammers');
         let found = await collection.findOne({ _id: uuid })
@@ -83,9 +79,6 @@ if (res.status != 200) {
             .setColor('GREEN')
           waitingembed.edit({embeds: [innocent]})
         }
-
-
-      })
     })
   }
 };

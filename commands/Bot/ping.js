@@ -18,6 +18,9 @@ module.exports = {
   let ping = ''
   if(m.createdTimestamp - message.createdTimestamp < 150) { ping = '<:ping:847473419011620955>'} else if (m.createdTimestamp - message.createdTimestamp < 300) { ping = '<:ping2:859717516548636672>'} else { ping = '<:ping3:859717516284002314>'}
 
+  let ping1 = ''
+  if(m.createdTimestamp - message.createdTimestamp < 150) { ping1 = '<:ping:847473419011620955>'} else if (m.createdTimestamp - message.createdTimestamp < 300) { ping1 = '<:ping2:859717516548636672>'} else { ping1 = '<:ping3:859717516284002314>'}
+
   
       m.edit({embeds: [
         new Discord.MessageEmbed()
@@ -25,7 +28,7 @@ module.exports = {
           .setColor('GREEN')
           .addFields(
             { name: `${ping} BOT Latency`, value: `${m.createdTimestamp - message.createdTimestamp}ms.`, inline: false },
-            { name: `${ping} API Latency`, value: `${Math.round(client.ws.ping)}ms.`, inline: false }
+            { name: `${ping1} API Latency`, value: `${Math.round(client.ws.ping)}ms.`, inline: false }
           )]});
     });
   }

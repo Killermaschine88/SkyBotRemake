@@ -88,7 +88,7 @@ async function getApiData(ign) {
     const config = require('../../config.json');
 
     const UUID = await getUUID(ign);
-    const response = await fetch(`https://baltraz.repl.co/v1/profiles/${UUID}/skills?key=${config.apikey}`);
+    const response = await fetch(`https://baltrazz.repl.co/v1/profiles/${UUID}/skills?key=${config.apikey}`);
     return await response.json();
 }
 

@@ -12,7 +12,7 @@ module.exports = {
   perms: "Scam Managers Only",
   folder: "Skyblock",
   aliases: [ 'sa' ],
-  execute: (client, message, args) => {
+  execute: (client, message, args, mcleint) => {
     if(!config.scammanagers.includes(message.author.id)) { 
 const noperms = new Discord.MessageEmbed()
 .setDescription('You tried using a Scam Manager Only Command.\nIf you want to report a Scammer join https://discord.gg/Ca6XpTRQaR and report them there.')
@@ -32,13 +32,10 @@ return;
     }
 
     // get uuid from mentioned ign here
-    axios.get(`https://some-random-api.ml/mc?username=${scammerIGN}`).then(res => {
+    axios.get(`https://some-random-api.ml/mc?username=${scammerIGN}`).then(async res => {
 				const uuid = res.data.uuid;
 
-    const MongoClient = require('mongodb').MongoClient;
-    const mclient = new MongoClient(urii, { useNewUrlParser: true, useUnifiedTopology: true });
-    mclient.connect(async err => {
-      if (err) throw err;
+
       const collection = mclient.db('Sky-Bot').collection('Scammers');
       
       await collection.updateOne(
@@ -58,8 +55,6 @@ return;
       await client.channels.fetch(config.scamlog)
         .then(channel => channel.send({embeds: sucEmbed}))
         .catch(console.error)
-      mclient.close();
-      })
     })
   }
 };

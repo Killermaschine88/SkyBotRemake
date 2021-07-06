@@ -12,7 +12,7 @@ module.exports = {
   perms: "Scam Managers Only",
   folder: "Skyblock",
   aliases: [ 'sg' ],
-  async execute(client, message, args) {
+  async execute(client, message, args, mcleint) {
 
 if(!config.scammanagers.includes(message.author.id)) { 
 const noperms = new Discord.MessageEmbed()
@@ -28,15 +28,12 @@ return;
       message.channel.send('Please enter a Username to check.')
       return;
     }
-    axios.get(`https://api.mojang.com/users/profiles/minecraft/${ign}`).then(res => {
+    axios.get(`https://api.mojang.com/users/profiles/minecraft/${ign}`).then(async res => {
       const uuid = res.data.id;
     
    message.react('<a:wait:847471618272002059>');
 
-      const MongoClient = require('mongodb').MongoClient;
-      const mclient = new MongoClient(urii, { useNewUrlParser: true, useUnifiedTopology: true });
-      mclient.connect(async err => {
-        if (err) throw err;
+
         const ign = args[0];
         const collection = mclient.db('Sky-Bot').collection('Scammers');
         let found = await collection.findOne({ _id: uuid })
@@ -59,10 +56,6 @@ return;
           message.channel.send({embeds: [sbembed]})
           return;
         }
-        mclient.close();
-
-
-      })
     })
   }
 };

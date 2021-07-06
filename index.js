@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const client = new Discord.Client({ intents: Discord.Intents.ALL});
+const client = new Discord.Client({ intents: Discord.Intents.ALL });
 const config = require('./config.json');
 const keepAlive = require('./keepAlive.js');
 const fs = require('fs');
@@ -9,7 +9,10 @@ const prefixx = new prefix();
 const mySecret = process.env['token'];
 let c = 0;
 let e = 0;
+const urii = process.env['uri']
 
+const MongoClient = require('mongodb').MongoClient;
+const mclient = new MongoClient(urii, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Bot token login
 client.login(mySecret);
@@ -18,7 +21,9 @@ client.login(mySecret);
 client.on('ready', () => {
   console.log(chalk.greenBright(`Logged in as ${client.user.username}!`));
   console.log(chalk.greenBright(`Loaded ${c} Commands and ${e} Events!`));
- client.user.setActivity(`${client.users.cache.size} Members and ${client.guilds.cache.size} Servers`, { type: 'WATCHING' });
+  client.user.setActivity(`${client.users.cache.size} Members and ${client.guilds.cache.size} Servers`, { type: 'WATCHING' });
+  mclient.connect()
+  console.log(chalk.greenBright(`Logged into MongoDB`));
 });
 
 
@@ -42,36 +47,22 @@ setInterval(() => {
 });*/
 
 //Replies with the Prefix when Bot is mentioned
-client.on('message', async message => {
+client.on('messageCreate', async message => {
 
- if (message.author.bot) return;
-  let guildPrefixx = await prefixx.get(message.guild.id, {raw: false});
+  if (message.author.bot) return;
+  let guildPrefixx = await prefixx.get(message.guild.id, { raw: false });
   if (guildPrefixx === null) guildPrefixx = ',';
   const bottag = message.mentions.users.first();
-  if (bottag === client.user) { (message.channel.send(`My Prefix is \`${guildPrefixx}\``)) 
-  return; }
+  if (bottag === client.user) {
+    (message.channel.send(`My Prefix is \`${guildPrefixx}\``))
+    return;
+  }
 });
 
-//dont judge me i was threatened to
-client.on('message', message => {
-
-if(message.content === '!mollyqt') {
-        if(message.author.id === '444806963415482369') 
-
-
-
-        message.channel.send(
-            new Discord.MessageEmbed()
-                .setDescription(":flushed:")
-                .setImage('https://cdn.discordapp.com/attachments/836267623485407283/844622340545052702/image0.png')
-                .setTimestamp()
-        )
-}
-
-});
 
 //Command Loader
 client.commands = new Discord.Collection();
+client.cooldowns 
 
 const commandFolders = fs.readdirSync('./commands');
 
@@ -87,10 +78,10 @@ for (const folder of commandFolders) {
 }
 
 //Command Handler
-client.on('message', async message => {
-  
-  if(message.channel.type === 'dm') return message.channel.send('I dont work in DMs.')
-  let gprefix = await prefixx.get(message.guild.id, {raw: false});
+client.on('messageCreate', async message => {
+
+  if (message.channel.type === 'dm') return message.channel.send('I dont work in DMs.')
+  let gprefix = await prefixx.get(message.guild.id, { raw: false });
   if (gprefix === null) gprefix = ',';
   if (!message.content.startsWith(gprefix) || message.author.bot) return;
   if (message.author.bot) return
@@ -103,7 +94,7 @@ client.on('message', async message => {
   if (!command) return;
 
   try {
-    command.execute(client, message, args);
+    command.execute(client, message, args, mclient);
   } catch (error) {
     console.error(error);
     message.reply('There was an Error trying to execute that Command!');

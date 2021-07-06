@@ -70,7 +70,7 @@ module.exports = {
 						) {
 							axios
 								.get(
-									`https://baltraz.repl.co/v1/profiles/${uuid}/catacombs?key=${config.
+									`https://baltrazz.repl.co/v1/profiles/${uuid}/catacombs?key=${config.
 										apikey
 									}`
 								)
