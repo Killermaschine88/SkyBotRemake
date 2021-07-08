@@ -13,7 +13,7 @@ module.exports = {
     if (args[0] === undefined) {
       const mainembed = new Discord.MessageEmbed()
         .setTitle('Sky Bot Help')
-        .setDescription('\n\`help <Command Name>\`\nFor a more Detailed view on Commands\n\n🤖 - Bot Help\n🔧 - Config Help\n🎲 - Fun Help\n🔨 - Moderation Help\n❓ - QOL Help\n🏝️ - Skyblock Help\n⚠️ - Work in Progress Help')
+        .setDescription('\n\`help <Command Name>\`\nFor a more Detailed view on Commands\n\n🤖 - Bot Help\n🔧 - Config Help\n🎲 - Fun Help\n🔨 - Moderation Help\n❓ - QOL Help\n🏝️ - Skyblock Help\n😎 - Skyblock Simulator\n⚠️ - Work in Progress Help')
         .setColor('ORANGE')
         .setFooter('You have 15 Seconds to React then the Menu will stop working.')
 
@@ -25,14 +25,15 @@ module.exports = {
         .then(() => menu.react('🔨'))
         .then(() => menu.react('❓'))
         .then(() => menu.react('🏝️'))
+        .then(() => menu.react('😎'))
         .then(() => menu.react('⚠️'))
         .then(setTimeout(function () { menu.reactions.removeAll(); }, 15000));
 
-   // if(message.guild.me.permissions.has('MANAGE_REACTIONS'))
+      // if(message.guild.me.permissions.has('MANAGE_REACTIONS'))
 
 
       const filter = (reaction, user) => {
-        return ['🤖', '🔧', '🎲', '🔨', '❓', '🏝️', '⚠️'].includes(reaction.emoji.name) && user.id === message.author.id;
+        return ['🤖', '🔧', '🎲', '🔨', '❓', '🏝️', '😎', '⚠️'].includes(reaction.emoji.name) && user.id === message.author.id;
       };
 
       menu.awaitReactions(filter, { max: 1, time: 15000, errors: ['time'] })
@@ -52,28 +53,30 @@ module.exports = {
     const command = message.client.commands.get(name);
 
     if (!command) {
-      return message.channel.send({embeds: [
-        new Discord.MessageEmbed()
-          .setDescription(`Command \`${name}\` wasn\'t found.\nUse \`!help\` to see all the Valid Commands. `)
-          .setColor('RED')
-      ]});
+      return message.channel.send({
+        embeds: [
+          new Discord.MessageEmbed()
+            .setDescription(`Command \`${name}\` wasn\'t found.\nUse \`!help\` to see all the Valid Commands. `)
+            .setColor('RED')
+        ]
+      });
     }
 
     let embed = new Discord.MessageEmbed()
       .setAuthor(`Help -> ${command.folder} -> ${command.name}`)
       .setColor('616060')
 
-let aliases = ''
-if(!command.aliases[0]) {
-  aliases = 'None'
-} else { aliases = command.aliases }
+    let aliases = ''
+    if (!command.aliases[0]) {
+      aliases = 'None'
+    } else { aliases = command.aliases }
 
     embed.setDescription(`${command.description}`)
     embed.addField('Permissions Needed to Execute', `${command.perms}`)
     embed.addField('Usage', `${command.usage}`)
     embed.addField('Aliases', `${aliases}`)
 
-    return message.channel.send({embeds: [embed]})
+    return message.channel.send({ embeds: [embed] })
   }
 };
 
@@ -110,6 +113,10 @@ function getEmbed(emoji) {
     case "🏝️":
       tempEmbed.setTitle("Skyblock Help");
       type = "Skyblock";
+      break;
+    case "😎":
+      tempEmbed.setTitle("Skyblock Simulator Help");
+      type = "SkyblockSim";
       break;
     case "⚠️":
       tempEmbed.setTitle("Work in Progress Help");

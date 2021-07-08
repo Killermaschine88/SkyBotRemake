@@ -17,7 +17,7 @@ module.exports = {
       .setFooter(`Used by ${message.author.tag}`)
 
     if (user) {
-      message.channel.send({embeds: [ratembed]})
+      message.channel.send({ embeds: [ratembed] })
     } else {
       message.channel.send("<a:wait:847471618272002059> You didn't mention a User or an ID to rat.")
     }

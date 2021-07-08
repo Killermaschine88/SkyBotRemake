@@ -6,15 +6,15 @@ module.exports = {
   usage: "avatar",
   perms: "None",
   folder: "Fun",
-  aliases: [ 'av' ],
-    execute: (client, message, args) => {
-      const user = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
-      
+  aliases: ['av'],
+  execute: (client, message, args) => {
+    const user = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
 
-      if (user) {
+
+    if (user) {
       message.channel.send(`The Users Avatar: ${user.displayAvatarURL({ format: 'png', dynamic: true })}`);
     } else {
       message.channel.send("Error. This may be cause because you pinged an Invalid User.")
-    }    
+    }
   }
 };

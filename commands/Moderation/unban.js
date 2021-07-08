@@ -9,23 +9,23 @@ module.exports = {
   aliases: [],
   execute: (client, message, args) => {
     if (!message.member.permissions.has('BAN_MEMBERS')) return message.channel.send("You are missing the Permission \`BAN_MEMBERS\`.");
-    if (!message.guild.me.permissions.has('BAN_MEMBERS'))return message.channel.send("I don\'t have \`BAN_MEMBERS\` Permission.");
+    if (!message.guild.me.permissions.has('BAN_MEMBERS')) return message.channel.send("I don\'t have \`BAN_MEMBERS\` Permission.");
 
 
 
     const user = args[0];
 
     const unban = new Discord.MessageEmbed()
-          .setTitle("<a:yes:847468695772987423> Unbanned User")
-          .setColor("008000")
-          .setDescription(`<@${user}> has been unbanned.`)
+      .setTitle("<a:yes:847468695772987423> Unbanned User")
+      .setColor("008000")
+      .setDescription(`<@${user}> has been unbanned.`)
     if (user) {
       const member = message.guild.member(user);
       if (args[0]) {
         message.guild.members
           .unban(user)
           .then(() => {
-            message.channel.send({embeds: [unban]});
+            message.channel.send({ embeds: [unban] });
           })
           .catch(err => {
             message.channel.send('<a:no:847468672380829707> I was unable to unban the Member.');

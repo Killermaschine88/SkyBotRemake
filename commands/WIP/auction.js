@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
-const Hypixel = require('hypixel-api-reborn');
-const config = require('../../config.json')
-const hypixel = new Hypixel.Client(config.apikey);
+//const Hypixel = require('hypixel-api-reborn');
+//const config = require('../../config.json')
+//const hypixel = new Hypixel.Client(config.apikey);
 
 
 
@@ -11,10 +11,13 @@ module.exports = {
   usage: "auction (IGN)",
   perms: "None",
   folder: "Skyblock",
-  aliases: [ 'ah' ],
+  aliases: ['ah'],
   async execute(client, message, args) {
 
-    const ign = args[0]
+    message.channel.send('no')
+    return;
+
+    /*const ign = args[0]
 
     if (args[0] === undefined) {
       message.channel.send('Please enter an IGN')
@@ -45,6 +48,6 @@ module.exports = {
         .setColor('GREEN')
       waitingembed.edit({ embeds: [ah] })
     }
-
+*/
   }
 };

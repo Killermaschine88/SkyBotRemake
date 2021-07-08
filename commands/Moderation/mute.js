@@ -37,7 +37,7 @@ module.exports = {
           .setTitle('<a:yes:847468695772987423> User Muted')
           .setColor('GREEN')
           .setDescription(`<@${memberTarget.user.id}> has been muted for ${ms(ms(args[1]))}.`)
-        message.channel.send({embeds: [muteembed]});
+        message.channel.send({ embeds: [muteembed] });
 
         setTimeout(function () {
           memberTarget.roles.remove(muteRole.id);
@@ -51,7 +51,7 @@ module.exports = {
         .setTitle('<a:no:847468672380829707> Error')
         .setColor('RED')
         .setDescription('Invalid Format.\n\`Use !mute (User) (Time in m/h).\`\nThis Error may also be from me not being able to assign the Role due to it being above me or Missing Permissions (Check !permissions to see if im missing any Permissions.)')
-      message.channel.send({embeds: [errorembed]})
+      message.channel.send({ embeds: [errorembed] })
     }
   }
 };

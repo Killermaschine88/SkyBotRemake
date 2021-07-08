@@ -5,7 +5,7 @@ module.exports = {
   usage: "getcode <filename>",
   perms: "Dev",
   folder: "Dev",
-  aliases: [ 'gc' ],
+  aliases: ['gc'],
   execute: (client, message, args) => {
     if (message.author.id !== config.ownerID) return message.channel.send("Can't use this!")
     message.delete();

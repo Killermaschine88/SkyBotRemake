@@ -11,33 +11,33 @@ module.exports = {
   usage: "scammeradd (Scammer IGN) (Scammer Reason)",
   perms: "Scam Managers Only",
   folder: "Skyblock",
-  aliases: [ 'sa' ],
+  aliases: ['sa'],
   execute: (client, message, args, mcleint) => {
-    if(!config.scammanagers.includes(message.author.id)) { 
-const noperms = new Discord.MessageEmbed()
-.setDescription('You tried using a Scam Manager Only Command.\nIf you want to report a Scammer join https://discord.gg/Ca6XpTRQaR and report them there.')
-.setColor('ORANGE')
-message.channel.send({embeds: [noperms]})
-return;
-}
+    if (!config.scammanagers.includes(message.author.id)) {
+      const noperms = new Discord.MessageEmbed()
+        .setDescription('You tried using a Scam Manager Only Command.\nIf you want to report a Scammer join https://discord.gg/Ca6XpTRQaR and report them there.')
+        .setColor('ORANGE')
+      message.channel.send({ embeds: [noperms] })
+      return;
+    }
 
 
     const scammerIGN = args[0];
     const scamPROOF = args[1];
     const scamREASON = args.slice(2).join(' ');
 
-    if(args[0] === undefined || args[1] === undefined) {
+    if (args[0] === undefined || args[1] === undefined) {
       message.channel.send("scammeradd (Scammer IGN) (Scam Proof[IMGUR Link]) (Scam Reason)");
       return;
     }
 
     // get uuid from mentioned ign here
     axios.get(`https://some-random-api.ml/mc?username=${scammerIGN}`).then(async res => {
-				const uuid = res.data.uuid;
+      const uuid = res.data.uuid;
 
 
       const collection = mclient.db('Sky-Bot').collection('Scammers');
-      
+
       await collection.updateOne(
         { _id: uuid },
         { $set: { scammerIGN: scammerIGN, scamPROOF: scamPROOF, scamREASON: scamREASON } },
@@ -51,9 +51,9 @@ return;
         .setFooter(`Added by ${message.author.tag}`)
 
 
-      await message.channel.send({embeds: [sucEmbed]});
+      await message.channel.send({ embeds: [sucEmbed] });
       await client.channels.fetch(config.scamlog)
-        .then(channel => channel.send({embeds: sucEmbed}))
+        .then(channel => channel.send({ embeds: sucEmbed }))
         .catch(console.error)
     })
   }

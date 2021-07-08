@@ -50,9 +50,9 @@ module.exports = {
         { name: "CPU Usage", value: `\`${usage}%\n${cores} Cores\``, inline: true },
         { name: "Memory Usage", value: `\`${memory.usedMemPercentage}%\n${memory.usedMemMb} Mb / ${memory.totalMemMb} Mb\``, inline: true },
         { name: "Hard Drive Usage", value: `\`${driver.usedPercentage}%\n${driver.usedGb} Gb / ${driver.totalGb} Gb\``, inline: true })
-        .setFooter(`${model}`)
-    
-    
-    message.channel.send({embeds: [infoembed]})
+      .setFooter(`${model}`)
+
+
+    message.channel.send({ embeds: [infoembed] })
   }
 };

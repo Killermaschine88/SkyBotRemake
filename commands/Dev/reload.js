@@ -7,15 +7,14 @@ module.exports = {
   usage: "reload <Command Name>",
   perms: "Dev",
   folder: "Dev",
-  aliases: [],
+  aliases: ['r'],
   execute: (client, message, args) => {
     if (message.author.id != config.ownerID) return message.channel.send("Can't use this!")
-    message.delete();
 
     if (!args[0]) return message.channel.send("Please provide a command to reload!")
 
     let commandName = args[0].toLowerCase()
-
+  const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
     const embedyes = new Discord.MessageEmbed()
       .setColor('00ff00')
@@ -25,6 +24,10 @@ module.exports = {
       .setColor('ff0000')
       .setDescription(`Couldn't reload **${commandName}**!\nMaybe you typed the **CommandName wrong** if not check the Console.`)
 
+  if(!command) {
+    message.channel.send({embeds: [embedno]})
+    return;
+  }
 
     try {
       const fs = require("fs");
@@ -32,18 +35,20 @@ module.exports = {
 
       for (const folder of commandFolders) {
         const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
-          for (const file of commandFiles) {
-            if (file.toLowerCase().includes(commandName.toLowerCase())) {
+        for (const file of commandFiles) {
+          if (file.toLowerCase().includes(commandName.toLowerCase())) {
             delete require.cache[require.resolve(`../${folder}/${file}`)]
             client.commands.delete(commandName)
             const pull = require(`../${folder}/${file}`)
             client.commands.set(commandName, pull)
+          }
+        }
       }
-  }
-}} catch (err) {
+    } catch (err) {
       console.log(err);
-      return message.channel.send({embeds: [embedno]})
+      return message.channel.send({ embeds: [embedno] })
     }
-    message.channel.send({embeds: [embedyes]})
+    
+    message.channel.send({ embeds: [embedyes] })
   }
 };

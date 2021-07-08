@@ -6,7 +6,7 @@ module.exports = {
   usage: 'slowmode (Time)\n\`Time Between 1 and 21600 (Enter 0 to remove Slowmode.)\`\n\`Example: !slowmode 5\`',
   perms: 'Manage Channels',
   folder: "Moderation",
-  aliases: [ 'sm' ],
+  aliases: ['sm'],
   async execute(client, message, args) {
     message.delete()
     if (!message.member.permissions.has('MANAGE_CHANNELS'))
@@ -30,6 +30,6 @@ module.exports = {
       .setFooter(`Done by ${message.author.tag}.`);
 
     message.channel.setRateLimitPerUser(time).catch(err => console.log(err));
-    message.channel.send({embeds: [embed]});
+    message.channel.send({ embeds: [embed] });
   }
 };

@@ -8,7 +8,7 @@ module.exports = {
   folder: "Moderation",
   aliases: [],
   execute: (client, message, args) => {
-    
+
     if (!message.member.permissions.has('MANAGE_MESSAGES')) return message.channel.send("You are missing the Permission \`MANAGE_MESSAGES\`.");
 
     if (!message.guild.me.permissions.has('MANAGE_MESSAGES')) return message.channel.send('I don\'t have \`MANAGE_MESSAGES\` Permission.')

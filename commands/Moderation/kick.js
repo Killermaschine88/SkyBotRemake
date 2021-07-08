@@ -13,16 +13,16 @@ module.exports = {
 
     const user = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
     const kickembed = new Discord.MessageEmbed()
-          .setTitle("<a:yes:847468695772987423> Kicked User")
-          .setColor("008000")
-          .setDescription(`${user} has been kicked.`)
+      .setTitle("<a:yes:847468695772987423> Kicked User")
+      .setColor("008000")
+      .setDescription(`${user} has been kicked.`)
     if (user) {
       const member = message.guild.member(user);
       if (member) {
         member
           .kick()
           .then(() => {
-            message.channel.send({embeds: [kickembed]});
+            message.channel.send({ embeds: [kickembed] });
           })
           .catch(err => {
             message.channel.send('<a:no:847468672380829707> I was unable to kick the Member.');

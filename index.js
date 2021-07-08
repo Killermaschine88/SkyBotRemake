@@ -14,6 +14,36 @@ const urii = process.env['uri']
 const MongoClient = require('mongodb').MongoClient;
 const mclient = new MongoClient(urii, { useNewUrlParser: true, useUnifiedTopology: true });
 
+
+//Topgg votes detection
+const Topgg = require("@top-gg/sdk")
+const express = require("express")
+
+const app = express()
+
+const webhook = new Topgg.Webhook("69420")
+
+app.post("/dblwebhook", webhook.listener( async vote => {
+
+    const collection = mclient.db('Sky-Bot').collection('SkyblockSim');
+    let found = await collection.findOne({ _id: vote.user })
+
+  await collection.updateOne(
+        { _id: vote.user },
+        { $inc: { voted: 100} },
+        { upsert: true })
+  //Sending voted message
+  client.channels.fetch('850847486826643516')
+    .then(channel => channel.send(`<@${vote.user}> has voted for me.\nID: ${vote.user}`))
+    .catch(console.error)
+    console.log('Someone voted.')
+}))
+
+app.listen(80)
+
+
+
+
 // Bot token login
 client.login(mySecret);
 
@@ -27,34 +57,15 @@ client.on('ready', () => {
 });
 
 
-/*//cycles status
-client.on('ready' , () => {
-
-  const arrayOfStatus = [ 
-  `${client.guilds.cache.size} Servers`, 
-  `${client.users.cache.size} Users`, 
-  `help for help`, 
-  `invite to Invite me!`
-  ];
-
-let index = 0;
-setInterval(() => {
-  if (index === arrayOfStatus.length) index
-  const status = arrayOfStatus[Math.floor(Math.random()*arrayOfStatus.length)]
-  client.user.setActivity(status , {type : 'WATCHING'});
-  index++;
-}, 30000); 
-});*/
-
 //Replies with the Prefix when Bot is mentioned
 client.on('messageCreate', async message => {
 
   if (message.author.bot) return;
-  let guildPrefixx = await prefixx.get(message.guild.id, { raw: false });
-  if (guildPrefixx === null) guildPrefixx = ',';
+  var gprefix = await prefixx.get(message.guild.id, { raw: false });
+  if (gprefix === null) gprefix = ',';
   const bottag = message.mentions.users.first();
   if (bottag === client.user) {
-    (message.channel.send(`My Prefix is \`${guildPrefixx}\``))
+    (message.channel.send(`My Prefix is \`${gprefix}\``))
     return;
   }
 });
@@ -62,7 +73,7 @@ client.on('messageCreate', async message => {
 
 //Command Loader
 client.commands = new Discord.Collection();
-client.cooldowns 
+client.cooldowns = new Discord.Collection();
 
 const commandFolders = fs.readdirSync('./commands');
 
@@ -93,6 +104,46 @@ client.on('messageCreate', async message => {
 
   if (!command) return;
 
+  const { cooldowns } = client;
+
+  if (!cooldowns.has(command.name)) {
+    cooldowns.set(command.name, new Discord.Collection());
+  }
+
+  const now = Date.now();
+  const timestamps = cooldowns.get(command.name);
+  let cooldownAmount = (command.cooldown || 3) * 1000;
+
+  //Owner Cooldown Bypass
+  if (message.author.id === '570267487393021969') {
+    cooldownAmount = 0
+  }
+
+  if (timestamps.has(message.author.id)) {
+    let expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+
+    const collection = mclient.db('Sky-Bot').collection('SkyblockSim')
+    const found = await collection.findOne({ _id: message.author.id })
+
+    //Phoenix Pet Cooldown Reduction
+    let cdr = 0
+    if (found.spet === 'phoenix') {
+      cdr = 3000
+    }
+
+    let exptime = expirationTime - cdr
+
+
+
+    if (now < exptime) {
+      const timeLeft = (exptime - now) / 1000;
+      return message.reply(`You need to wait **${timeLeft.toFixed(1)}s** before using \`${command.name}\` again.`);
+    }
+  }
+
+  timestamps.set(message.author.id, now);
+  setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+
   try {
     command.execute(client, message, args, mclient);
   } catch (error) {
@@ -117,9 +168,10 @@ for (const file of eventFiles) {
 }
 
 //Loophole to keep the Bot running
-keepAlive();
+//keepAlive();
 
-/* how to export commands
+/* how to export commands 
+//add cooldown: 0, to set a specific cooldown else it is 3 seconds
 const Discord = require('discord.js');
 module.exports = {
   name: "Name",
