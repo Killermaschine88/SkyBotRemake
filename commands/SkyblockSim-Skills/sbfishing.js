@@ -1,12 +1,12 @@
 const Discord = require('discord.js');
 
 module.exports = {
-  name: "Sbcombat",
-  description: "Earn Combat XP",
-  usage: "sbcombat",
+  name: "Sbfishing",
+  description: "Earn Fishing XP",
+  usage: "sbfishing",
   perms: "None",
   folder: "SkyblockSim",
-  aliases: ['combat'],
+  aliases: ['fishing'],
   cooldown: 180,
   async execute(client, message, args, mclient) {
 
@@ -24,12 +24,12 @@ module.exports = {
 
     await collection.updateOne(
       { _id: message.author.id },
-      { $inc: { money: coins, combat: earnedxp } },
+      { $inc: { money: coins, farming: earnedxp } },
       { upsert: true })
 
     const finished = new Discord.MessageEmbed()
       .setColor('90EE90')
-      .setDescription(`Finished killing Mobs and earned <:coins:861974605203636253> ${coins} Coins and <:combat:852069714527911956> ${earnedxp} Combat XP.`)
+      .setDescription(`Finished killing Mobs and earned <:coins:861974605203636253> ${coins} Coins and <:fishing:852069714359877643> ${earnedxp} Fishing XP.`)
 
   menu.edit({embeds: [finished]})
 
