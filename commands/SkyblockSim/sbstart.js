@@ -28,8 +28,9 @@ module.exports = {
     if (found === null) {
       await collection.updateOne(
         { _id: message.author.id },
-        { $set: { money: 0, world: 0, area: 0, tkills: 0, dragon: false, phoenix: false, enderman: false, luckcharm: false, voted: 0, sword: 'jerry' } },
+        { $set: { money: 0, world: 0, area: 0, tkills: 0, dragon: false, phoenix: false, enderman: false, luckcharm: false, voted: 0, sword: 'jerry', eyes: 0, dkills: 0, dragunlocked: false, prestige: 0, mining: 0, foraging: 0, enchanting: 0, farming: 0, combat: 0, fishing: 0 } },
         { upsert: true })
+
 
       const created = new Discord.MessageEmbed()
         .setColor('90EE90')

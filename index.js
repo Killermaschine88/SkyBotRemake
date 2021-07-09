@@ -126,12 +126,27 @@ client.on('messageCreate', async message => {
     const found = await collection.findOne({ _id: message.author.id })
 
     //Phoenix Pet Cooldown Reduction
-    let cdr = 0
-    if (found.spet === 'phoenix') {
-      cdr = 3000
+    let cdr1 = 0
+    let cdr2 = 0
+    let cdr3 = 0
+    let cdr4 = 0
+
+    if (found.phoenix === true) {
+      cdr1 = 1000 //after testing 2000
+    }
+    if(found.dragon === true) {
+      cdr2 = 2000 //after testing 3000
+    }
+    if(found.luckcharm === true) {
+      cdr3 = 1000 
+    }
+    if(found.enderman === true) {
+      cdr4 = 1000
     }
 
-    let exptime = expirationTime - cdr
+
+    let reduced = cdr1 + cdr2 + cdr3 + cdr4
+    let exptime = expirationTime - reduced
 
 
 

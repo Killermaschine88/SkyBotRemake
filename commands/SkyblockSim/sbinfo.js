@@ -52,9 +52,19 @@ module.exports = {
         .setFooter('Skyblock Simulator')
         .setColor('90EE90')
         .setDescription(`**Profile Info for <@${id}>**\nCoins: **${tcoins} <:coins:861974605203636253>**\nTotal Kills: **${found.tkills} <:berserker:852079613052059658>**\nRemaining Double Sells: **${found.voted}**`)
+        .addField(`Combat [1]`, `XP: xp`, true)
+        .addField(`Foraging [1]`, `XP: xp`, true)
+        .addField(`Enchanting [1]`, `XP: xp`, true)
+        .addField(`Farming [1]`, `XP: xp`, true)
+        .addField(`Combat [1]`, `XP: xp`, true)
+        .addField(`Fishing [1]`, `XP: xp`, true)
+
+
+
         .addField('World', `${found.world}`, true)
         .addField('Area', `${found.area}`, true)
         .addField('Sword', `${sword}`, true)
+
 
       if (found.luckycharm === true) {
         foundinfo.addField('Lucky Charm Pet', 'Owned', true)
@@ -79,3 +89,4 @@ module.exports = {
     }
   }
 };
+
