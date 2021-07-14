@@ -84,7 +84,7 @@ module.exports = {
     const end = new Discord.MessageEmbed()
       .setTitle('Dragon Loot')
       .setColor('90EE90')
-      .setFooter('Skyblock Simulator')
+      .setFooter('Skyblock Simulator\nThis is purely cosmetic as of now will change in the Future')
     if (loot === 'Fragments') {
       end.setDescription(`You killed an **${dragname} Dragon** which dropped you **${fragsamount}x ${loot}** earning you **<:coins:861974605203636253> ${earned} Coins**`)
     } else { end.setDescription(`You killed an **${dragname} Dragon** which dropped you **${loot}** earning you **<:coins:861974605203636253> ${earned} Coins**`) }
