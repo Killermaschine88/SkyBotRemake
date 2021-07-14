@@ -9,7 +9,7 @@ module.exports = {
   perms: "None",
   folder: "SkyblockSim",
   aliases: ['sbgrind', 'sbf', 'sbg'],
-  cooldown: 10,
+  cooldown: 15,
   async execute(client, message, args, mclient) {
 
     const collection = mclient.db('Sky-Bot').collection('SkyblockSim');

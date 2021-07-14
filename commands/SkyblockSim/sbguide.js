@@ -13,7 +13,7 @@ module.exports = {
   async execute(client, message, args) {
 
     var gprefix = await prefixx.get(message.guild.id, { raw: false });
-    if (gprefix === null) gprefix = ',';
+    if (gprefix === null) gprefix = '!';
 
     const guide = new Discord.MessageEmbed()
       .setTitle('Skyblock Simulator Guide')

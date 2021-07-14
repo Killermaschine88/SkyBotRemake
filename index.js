@@ -62,7 +62,7 @@ client.on('messageCreate', async message => {
 
   if (message.author.bot) return;
   var gprefix = await prefixx.get(message.guild.id, { raw: false });
-  if (gprefix === null) gprefix = ',';
+  if (gprefix === null) gprefix = '!';
   const bottag = message.mentions.users.first();
   if (bottag === client.user) {
     (message.channel.send(`My Prefix is \`${gprefix}\``))
@@ -93,7 +93,7 @@ client.on('messageCreate', async message => {
 
   if (message.channel.type === 'dm') return message.channel.send('I dont work in DMs.')
   let gprefix = await prefixx.get(message.guild.id, { raw: false });
-  if (gprefix === null) gprefix = ',';
+  if (gprefix === null) gprefix = '!';
   if (!message.content.startsWith(gprefix) || message.author.bot) return;
   if (message.author.bot) return
 
@@ -132,10 +132,10 @@ client.on('messageCreate', async message => {
     let cdr4 = 0
 
     if (found.phoenix === true) {
-      cdr1 = 1000 //after testing 2000
+      cdr1 = 2000
     }
     if(found.dragon === true) {
-      cdr2 = 2000 //after testing 3000
+      cdr2 = 2000
     }
     if(found.luckcharm === true) {
       cdr3 = 1000 

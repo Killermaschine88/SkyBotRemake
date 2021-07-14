@@ -19,7 +19,7 @@ module.exports = {
     const id = message.guild.id;
     let gprefix = await prefixx.get(id);
     if (gprefix === null) {
-      gprefix = ','
+      gprefix = '!'
     }
 
     //System Info

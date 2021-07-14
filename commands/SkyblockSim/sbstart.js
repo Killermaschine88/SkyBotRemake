@@ -23,7 +23,7 @@ module.exports = {
 
 
     var gprefix = await prefixx.get(message.guild.id, { raw: false });
-    if (gprefix === null) gprefix = ',';
+    if (gprefix === null) gprefix = '!';
 
     if (found === null) {
       await collection.updateOne(

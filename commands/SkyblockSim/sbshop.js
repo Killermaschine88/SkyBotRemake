@@ -16,7 +16,7 @@ module.exports = {
     const found = await collection.findOne({ _id: message.author.id })
 
     var gprefix = await prefixx.get(message.guild.id, { raw: false });
-    if (gprefix === null) gprefix = ',';
+    if (gprefix === null) gprefix = '!';
 
     const store = new Discord.MessageEmbed()
       .setDescription('<a:wait:847471618272002059> Refreshing the Store')

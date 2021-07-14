@@ -21,7 +21,7 @@ module.exports = {
                 .setColor('7CFC00')
                 .setTimestamp()
                 .addFields(
-                  {name: "Guild Owner", value: `${guild.owner} [${guild.owner.user.tag} (${guild.owner.id})]`},
+                 // {name: "Guild Owner", value: `${guild.owner} (${guild.owner.id})]`},
                   {name: "Member Count of the Server", value: `${guild.memberCount}`},
                   {name: "Bot Count of the Server", value: `${guild.members.cache.filter(u => u.user.bot).size}`},
                  {name: "Total Server Count Now", value: `${client.guilds.cache.size}`},
@@ -38,6 +38,6 @@ function discordLog(client, embed) {
     const config = require('../config.json');
 
     client.channels.fetch(config.joinlog)
-        .then(channel => channel.send(embed))
+        .then(channel => channel.send({embeds: [embed]}))
         .catch(console.error)
 }
