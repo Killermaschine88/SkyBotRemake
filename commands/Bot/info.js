@@ -45,7 +45,7 @@ module.exports = {
         { name: "ℹ️ Total User Count", value: `\`${client.users.cache.size}\``, inline: true },
         { name: "<:uptime:847474288884842567> Bot Uptime", value: `\`${pms(client.uptime)}\``, inline: true },
         { name: "Prefix", value: `\`${gprefix}\``, inline: true },
-        { name: "Command Count", value: '\`41\`', inline: true },
+        { name: "Command Count", value: '\`58\`', inline: true },
         { name: "Event Count", value: '\`2\`', inline: true },
         { name: "CPU Usage", value: `\`${usage}%\n${cores} Cores\``, inline: true },
         { name: "Memory Usage", value: `\`${memory.usedMemPercentage}%\n${memory.usedMemMb} Mb / ${memory.totalMemMb} Mb\``, inline: true },

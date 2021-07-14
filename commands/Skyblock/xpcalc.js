@@ -7,6 +7,6 @@ module.exports = {
   folder: "Skyblock",
   aliases: ['xpc'],
     execute: (client, message, args) => {
-      console.log('A')
+      message.channel.send('Im being worked on')
     }
 };
