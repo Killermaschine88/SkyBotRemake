@@ -11,14 +11,14 @@ module.exports = {
   perms: "Dev",
   folder: "Dev",
   aliases: [],
-  execute: (client, message, args) => {
+  async execute(client, message, args) {
     if (message.author.id !== config.ownerID) return message.channel.send("Can't use this!")
     try {
       var result = args.join(" ")
       let noResultArg = new Discord.MessageEmbed()
         .setColor("RED")
         .setDescription("ERROR: No valid eval args were provided")
-      if (!result) return message.channel.send(noResultArg)
+      if (!result) return message.channel.send({embeds: [noResultArg]})
       let evaled = eval(result);
 
 
@@ -36,7 +36,7 @@ module.exports = {
         .setTitle("An error has occured")
         .addField(`<:input:849565147331559424> Input:\n`, '```js\n' + `${result}` + '```', false)
         .addField(`<:output:849565147348336650>Output:\n`, '```js\n' + `${error.message}` + '```', true)
-        .setDescription(`Output:\n\`\`\`${error}\`\`\``)
+        .setDescription(`Error:\n\`\`\`${error}\`\`\``)
       return message.channel.send({ embeds: [resultError] })
     }
   }

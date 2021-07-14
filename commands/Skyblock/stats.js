@@ -1,8 +1,6 @@
 const Discord = require('discord.js');
 const fetch = require('node-fetch');
 
-
-
 module.exports = {
   name: 'Stats',
   usage: 'stats (IGN)',

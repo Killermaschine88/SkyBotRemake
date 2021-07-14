@@ -44,13 +44,13 @@ module.exports = {
         if (area === 0) {
           shop.addField(`Area 1-0`, '1M Coins', true)
         } else if (area === 1) {
-          shop.addField(`Area 2-0`, '2M', true)
+          shop.addField(`Area 2-0`, '3M', true)
         } else if (area === 2) {
-          shop.addField(`Area 3-0`, '4M', true)
+          shop.addField(`Area 3-0`, '5M', true)
         } else if (area === 3) {
-          shop.addField(`Area 4-0`, '6M', true)
+          shop.addField(`Area 4-0`, '8M', true)
         } else if (area === 4) {
-          shop.addField(`Area 5-0`, '8M', true)
+          shop.addField(`Area 5-0`, '12M', true)
         } else {
           shop.addField(`World 0-1`, '20M', true)
         }
@@ -111,7 +111,7 @@ module.exports = {
       }
 
       //Armor and Pet Price
-      if (found.luckycharm === false) {
+      if (found.luckcharm === false) {
         shop.addField('Luckycharm Pet', '5M', true)
       }
       if (found.sword === 'jerry') {
@@ -139,8 +139,8 @@ module.exports = {
             .setColor('90EE90')
             .setDescription('Purchased Area 1-0 Upgrade')
           menu.edit({ embeds: [purchased] })
-        } if (world === 0 && area === 1 && coins > 2000000) {
-          let endmoney = found.money - 2000000
+        } if (world === 0 && area === 1 && coins > 3000000) {
+          let endmoney = found.money - 3000000
           await collection.updateOne(
             { _id: message.author.id },
             { $set: { money: endmoney, area: 2 } },
@@ -149,8 +149,8 @@ module.exports = {
             .setColor('90EE90')
             .setDescription('Purchased Area 2-0 Upgrade')
           menu.edit({ embeds: [purchased] })
-        } if (world === 0 && area === 2 && coins > 4000000) {
-          let endmoney = found.money - 4000000
+        } if (world === 0 && area === 2 && coins > 5000000) {
+          let endmoney = found.money - 5000000
           await collection.updateOne(
             { _id: message.author.id },
             { $set: { money: endmoney, area: 3 } },
@@ -159,8 +159,8 @@ module.exports = {
             .setColor('90EE90')
             .setDescription('Purchased Area 3-0 Upgrade')
           menu.edit({ embeds: [purchased] })
-        } if (world === 0 && area === 3 && coins > 6000000) {
-          let endmoney = found.money - 6000000
+        } if (world === 0 && area === 3 && coins > 8000000) {
+          let endmoney = found.money - 8000000
           await collection.updateOne(
             { _id: message.author.id },
             { $set: { money: endmoney, area: 4 } },
@@ -169,8 +169,8 @@ module.exports = {
             .setColor('90EE90')
             .setDescription('Purchased Area 4-0 Upgrade')
           menu.edit({ embeds: [purchased] })
-        } if (world === 0 && area === 4 && coins > 8000000) {
-          let endmoney = found.money - 8000000
+        } if (world === 0 && area === 4 && coins > 12000000) {
+          let endmoney = found.money - 12000000
           await collection.updateOne(
             { _id: message.author.id },
             { $set: { money: endmoney, area: 5 } },
@@ -498,11 +498,11 @@ module.exports = {
 
         //Pet Upgrade
       } else if (args[0] === 'luckycharm') {
-        if (found.luckycharm === false && coins > 5000000) {
+        if (found.luckcharm === false && coins > 5000000) {
           let endmoney = found.money - 5000000
           await collection.updateOne(
             { _id: message.author.id },
-            { $set: { money: endmoney, luckycharm: true } },
+            { $set: { money: endmoney, luckcharm: true } },
             { upsert: true })
           const purchased = new Discord.MessageEmbed()
             .setColor('90EE90')

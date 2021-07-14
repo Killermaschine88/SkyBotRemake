@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const client = new Discord.Client({ intents: Discord.Intents.ALL });
+const client = new Discord.Client({ intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_PRESENCES'] });
 const config = require('./config.json');
 const keepAlive = require('./keepAlive.js');
 const fs = require('fs');

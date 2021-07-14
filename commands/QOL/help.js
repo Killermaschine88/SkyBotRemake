@@ -9,13 +9,15 @@ module.exports = {
   folder: "QOL",
   aliases: [],
   async execute(client, message, args) {
+    
+    try{
 
-    if (args[0] === undefined) {
+    if (!args[0]) {
       const mainembed = new Discord.MessageEmbed()
         .setTitle('Sky Bot Help')
-        .setDescription('\n\`help <Command Name>\`\nFor a more Detailed view on Commands\n\n🤖 - Bot Help\n🔧 - Config Help\n🎲 - Fun Help\n🔨 - Moderation Help\n❓ - QOL Help\n🏝️ - Skyblock Help\n😎 - Skyblock Simulator\n⚠️ - Work in Progress Help')
+        .setDescription('\n\`help <Command Name>\`\nFor a more Detailed view on Commands\n\n🤖 - Bot Help\n🔧 - Config Help\n🎲 - Fun Help\n🔨 - Moderation Help\n❓ - QOL Help\n🏝️ - Skyblock Help\n😎 - Skyblock Simulator\n👍 - Skyblock Simulator-Skills\n⚠️ - Work in Progress Help')
         .setColor('ORANGE')
-        .setFooter('You have 15 Seconds to React then the Menu will stop working.')
+        .setFooter('You have 30 Seconds to React then the Menu will stop working.')
 
       const menu = await message.channel.send({ embeds: [mainembed] })
 
@@ -26,29 +28,30 @@ module.exports = {
         .then(() => menu.react('❓'))
         .then(() => menu.react('🏝️'))
         .then(() => menu.react('😎'))
+        .then(() => menu.react('👍'))
         .then(() => menu.react('⚠️'))
-        .then(setTimeout(function () { menu.reactions.removeAll(); }, 15000));
-
-      // if(message.guild.me.permissions.has('MANAGE_REACTIONS'))
+      //  .then(setTimeout(function () { menu.reactions.removeAll(); }, 30000));
+  
 
 
       const filter = (reaction, user) => {
-        return ['🤖', '🔧', '🎲', '🔨', '❓', '🏝️', '😎', '⚠️'].includes(reaction.emoji.name) && user.id === message.author.id;
+        return ['🤖', '🔧', '🎲', '🔨', '❓', '🏝️', '😎', '👍', '⚠️'].includes(reaction.emoji.name) && user.id === message.author.id;
       };
 
-      menu.awaitReactions(filter, { max: 1, time: 15000, errors: ['time'] })
+      menu.awaitReactions({filter, max: 1, time: 30000, errors: ["time"]})
         .then(collected => {
+          
           const reaction = collected.first();
 
           let embed = getEmbed(reaction.emoji);
 
           if (embed.valid) {
-            menu.reactions.removeAll();
             menu.edit({ embeds: [embed.embed] });
           }
         }).catch(collected => { }) //This Line is so it dont throw Error upon Collection ending
     }
-
+} catch (error) {console.log(error)}
+    if(args[0]) {
     const name = args[0].toLowerCase();
     const command = message.client.commands.get(name);
 
@@ -56,7 +59,7 @@ module.exports = {
       return message.channel.send({
         embeds: [
           new Discord.MessageEmbed()
-            .setDescription(`Command \`${name}\` wasn\'t found.\nUse \`!help\` to see all the Valid Commands. `)
+            .setDescription(`Command \`${name}\` wasn\'t found.\nUse \`help\` to see all the Valid Commands. `)
             .setColor('RED')
         ]
       });
@@ -77,6 +80,7 @@ module.exports = {
     embed.addField('Aliases', `${aliases}`)
 
     return message.channel.send({ embeds: [embed] })
+    }
   }
 };
 
@@ -117,6 +121,10 @@ function getEmbed(emoji) {
     case "😎":
       tempEmbed.setTitle("Skyblock Simulator Help");
       type = "SkyblockSim";
+      break;
+    case "👍":
+      tempEmbed.setTitle("Skyblock Simulator Skills Help");
+      type = "SkyblockSim-Skills";
       break;
     case "⚠️":
       tempEmbed.setTitle("Work in Progress Help");

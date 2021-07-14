@@ -38,7 +38,7 @@ module.exports = {
       .setColor("BLUE")
       .setDescription("Various Information about the Bot")
       .addFields(
-        { name: "<:verifieddev:848830303472189461> Bot Dev", value: "Baltraz#4874 [570267487393021969]\nfirebxll#0001 [444806963415482369]", inline: true },
+        { name: "<:verifieddev:848830303472189461> Bot Dev", value: "Baltraz#4874 [570267487393021969]", inline: true },
         { name: "<:contributor:849605979589967922> Contributors", value: "Hima, Delta, Mend", inline: true },
         { name: "<:support:848831144509177866> Support Server", value: "[Discord Support Server](https://discord.gg/Ca6XpTRQaR)", inline: true },
         { name: "ℹ️ Total Server Count", value: `\`${client.guilds.cache.size}\``, inline: true },

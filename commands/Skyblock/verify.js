@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const axios = require('axios');
-const config = require('../../config.json');
+
 
 
 module.exports = {
@@ -45,6 +45,8 @@ module.exports = {
           );
         return;
       }
+      delete require.cache[require.resolve('../../config.json')];
+      const config = require('../../config.json');
       axios.get(`https://some-random-api.ml/mc?username=${ign}`).then(res => {
         const uuid = res.data.uuid;
         axios
