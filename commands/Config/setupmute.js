@@ -7,7 +7,7 @@ module.exports = {
   usage: "setupmute",
   perms: "Manage Channels",
   folder: "Config",
-  aliases: [''],
+  aliases: [],
   execute: (client, message, args) => {
     if (!message.member.permissions.has('MANAGE_CHANNELS')) return message.channel.send("You are missing the Permission \`MANAGE_CHANNELS\`.");
     if (!message.guild.me.permissions.has('MANAGE_CHANNELS')) return message.channel.send("I don\'t have \`MANAGE_CHANNELS\` Permission.");

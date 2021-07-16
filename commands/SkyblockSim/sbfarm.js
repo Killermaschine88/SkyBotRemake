@@ -15,7 +15,7 @@ module.exports = {
     const collection = mclient.db('Sky-Bot').collection('SkyblockSim');
     let found = await collection.findOne({ _id: message.author.id })
     var gprefix = await prefixx.get(message.guild.id, { raw: false });
-    if (gprefix === null) gprefix = ',';
+    if (gprefix === null) gprefix = '!';
 
     if (found === null) {
       const noprofile = new Discord.MessageEmbed()
@@ -306,7 +306,7 @@ module.exports = {
       .setTitle('Results from Slaying Mobs')
       .setColor('90EE90')
       .setDescription(`Earned **<:coins:861974605203636253> ${te}** Coins from killing **${rn1} ${mb1}s** and **${rn2} ${mb2}s**`)
-      .setFooter(`Total Coins: ${tcoins}\nIf you feel like some Levels take too long to reach use the invite command and say so in the support Server`)
+      .setFooter(`Skyblock Simulator\nIf you feel like some Levels take too long to reach use the invite command and say so in the support Server`)
     if (prn === 6969) {
       finish.addField('\u200b', '**PHOENIX DROP**')
     }

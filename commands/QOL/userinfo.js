@@ -13,10 +13,10 @@ module.exports = {
     let userArgs = userArray.slice(1);
     let member = message.mentions.members.first() || message.guild.members.cache.get(userArgs[0]) || message.guild.members.cache.find(x => x.user.username.toLowerCase() === userArgs.slice(0).join(" ") || x.user.username === userArgs[0]) || message.member;
 
-    if (member.presence.status === 'dnd') member.presence.status = 'Do Not Disturb';
+    /*if (member.presence.status === 'dnd') member.presence.status = 'Do Not Disturb';
     if (member.presence.status === 'online') member.presence.status = 'Online';
     if (member.presence.status === 'idle') member.presence.status = 'Idle';
-    if (member.presence.status === 'offline') member.presence.status = 'offline';
+    if (member.presence.status === 'offline') member.presence.status = 'offline';*/
 
 
     const badges = member.user.flags.toArray()
@@ -96,7 +96,7 @@ module.exports = {
 
 
 
-    let web = ''
+    /*let web = ''
     if (!member.user.presence.clientStatus) {
       web = 'Unknown'
     } else if (member.user.presence.clientStatus.desktop) {
@@ -105,14 +105,14 @@ module.exports = {
       web = 'Mobile'
     } else {
       web = 'Browser'
-    }
+    }*/
 
     let x = Date.now() - member.createdAt;
     let y = Date.now() - message.guild.members.cache.get(member.id).joinedAt;
     const joined = Math.floor(y / 86400000);
 
     const joineddate = moment.utc(member.joinedAt).format("dddd, MMMM Do YYYY, HH:mm:ss");
-    let status = member.presence.status;
+    //let status = member.presence.status;
 
 
 
@@ -124,11 +124,9 @@ module.exports = {
       .addField('Roles', `<@&${member._roles.join('> <@&')}>`)
       .addField("Account Creation Date:", ` ${moment.utc(member.user.createdAt).format("dddd, MMMM Do YYYY")}`, true)
       .addField('Server Join Date', `${joineddate} \n${joined} Days ago`, true)
-      .addField('Badges', "" + empl + events + partner + bughunter2 + bughunter + developer + earlysupporter + bravery + brilliance + balance)
-      .addField('Moderation Permissions', '' + administrator + manage_server + manage_channels + manage_guild + kick_members + ban_members + view_audit_log + manage_messages + mention_everyone + manage_nicknames + manage_roles + manage_webhooks + manage_emojis)
-      .addField('Basic Permissions', '' + create_instant_invite + embed_links + attach_files + use_external_emojis)
-      .addField("Status", status, true)
-      .addField("Device", web, true)
+      .addField('Badges', "\u200b" + empl + events + partner + bughunter2 + bughunter + developer + earlysupporter + bravery + brilliance + balance)
+      .addField('Moderation Permissions', '\u200b' + administrator + manage_server + manage_channels + manage_guild + kick_members + ban_members + view_audit_log + manage_messages + mention_everyone + manage_nicknames + manage_roles + manage_webhooks + manage_emojis)
+      .addField('Basic Permissions', '\u200b' + create_instant_invite + embed_links + attach_files + use_external_emojis)
 
     message.channel.send({ embeds: [userEmbed] });
   }

@@ -10,6 +10,8 @@ const mySecret = process.env['token'];
 let c = 0;
 let e = 0;
 const urii = process.env['uri']
+const { AutoPoster } = require('topgg-autoposter')
+const toptoken = process.env['toptoken']
 
 const MongoClient = require('mongodb').MongoClient;
 const mclient = new MongoClient(urii, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -40,6 +42,13 @@ app.post("/dblwebhook", webhook.listener( async vote => {
 }))
 
 app.listen(80)
+
+//Topgg stats posting
+const poster = AutoPoster(toptoken, client) // your discord.js or eris client
+
+poster.on('posted', (stats) => { // ran when succesfully posted
+  console.log(`Posted stats to Top.gg | ${stats.serverCount} servers`)
+})
 
 
 
